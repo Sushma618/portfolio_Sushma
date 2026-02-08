@@ -14,6 +14,203 @@
   h1, h2, h3, h4 {
     @apply text-white;
   }
+
+  .theme-fresh {
+    background-color: #0b0612;
+    background-image: radial-gradient(circle at 20% 15%, rgba(190, 24, 93, 0.35), transparent 48%),
+      radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.25), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(248, 113, 113, 0.2), transparent 55%);
+    color: #f8fafc;
+  }
+
+  .theme-fresh .bg-ink {
+    background-color: #0b0612;
+  }
+
+  .theme-fresh .bg-panel {
+    background-color: #12081c;
+  }
+
+  .theme-fresh .text-slate-100 {
+    color: #fdf2f8;
+  }
+
+  .theme-fresh .text-slate-200 {
+    color: #fbcfe8;
+  }
+
+  .theme-fresh .text-slate-300 {
+    color: #fecdd3;
+  }
+
+  .theme-fresh .text-slate-400 {
+    color: #fda4af;
+  }
+
+  .theme-fresh h1,
+  .theme-fresh h2,
+  .theme-fresh h3,
+  .theme-fresh h4 {
+    color: #fdf2f8;
+  }
+
+  .theme-fresh .border-slate-800,
+  .theme-fresh .border-slate-700,
+  .theme-fresh .border-slate-500 {
+    border-color: rgba(244, 63, 94, 0.35);
+  }
+
+  .theme-fresh .text-accentPurple {
+    color: #be185d;
+  }
+
+  .theme-fresh .text-accentCyan {
+    color: #14f1d9;
+  }
+
+  .theme-fresh .from-accentPurple {
+    --tw-gradient-from: #be185d;
+    --tw-gradient-to: rgb(190 24 93 / 0);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  .theme-fresh .via-accentCyan {
+    --tw-gradient-stops: var(--tw-gradient-from), #14f1d9, var(--tw-gradient-to);
+  }
+
+  .theme-fresh .to-accentCyan {
+    --tw-gradient-to: #14f1d9;
+  }
+
+  .text-highlight-1 {
+    color: #a855f7;
+  }
+
+  .text-highlight-2 {
+    color: #06b6d4;
+  }
+
+  .text-highlight-3 {
+    color: #a855f7;
+  }
+
+  .text-highlight-4 {
+    color: #06b6d4;
+  }
+
+  .text-highlight-5 {
+    color: #a855f7;
+  }
+
+  .text-highlight-6 {
+    color: #06b6d4;
+  }
+
+  .emoji-accent {
+    filter: none;
+  }
+
+  .theme-fresh .text-highlight-1 {
+    color: #be185d;
+  }
+
+  .theme-fresh .text-highlight-2 {
+    color: #f472b6;
+  }
+
+  .theme-fresh .text-highlight-3 {
+    color: #fb7185;
+  }
+
+  .theme-fresh .text-highlight-4 {
+    color: #f97316;
+  }
+
+  .theme-fresh .text-highlight-5 {
+    color: #22c55e;
+  }
+
+  .theme-fresh .text-highlight-6 {
+    color: #14f1d9;
+  }
+
+  .theme-fresh .fresh-highlight-gradient {
+    background-image: linear-gradient(90deg, #be185d, #f472b6, #fb7185, #f97316, #22c55e, #14f1d9);
+  }
+
+  .theme-fresh .emoji-accent {
+    filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.6))
+      drop-shadow(0 0 10px rgba(244, 114, 182, 0.45))
+      drop-shadow(0 0 12px rgba(251, 113, 133, 0.35))
+      drop-shadow(0 0 10px rgba(249, 115, 22, 0.35))
+      drop-shadow(0 0 12px rgba(34, 197, 94, 0.35))
+      drop-shadow(0 0 12px rgba(20, 241, 217, 0.55));
+  }
+
+  .theme-fresh .neon-glow {
+    box-shadow: 0 0 22px rgba(190, 24, 93, 0.7), 0 0 48px rgba(20, 241, 217, 0.5),
+      inset 0 0 18px rgba(244, 114, 182, 0.35);
+  }
+
+  @keyframes neon-blink-fresh {
+    0%, 100% {
+      box-shadow: 0 0 22px rgba(190, 24, 93, 0.7), 0 0 48px rgba(20, 241, 217, 0.5),
+        inset 0 0 18px rgba(244, 114, 182, 0.35);
+    }
+    50% {
+      box-shadow: 0 0 44px rgba(190, 24, 93, 1), 0 0 90px rgba(20, 241, 217, 0.85),
+        inset 0 0 28px rgba(244, 114, 182, 0.55);
+    }
+  }
+
+  .theme-fresh .neon-blink {
+    animation: neon-blink-fresh 0.5s ease-in-out 2 !important;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes flip-in {
+    0% {
+      transform: perspective(1000px) rotateY(-90deg);
+      opacity: 0;
+    }
+    100% {
+      transform: perspective(1000px) rotateY(0deg);
+      opacity: 1;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-flip-in {
+    animation: flip-in 0.6s ease-out forwards;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
 }
 
 @layer components {
