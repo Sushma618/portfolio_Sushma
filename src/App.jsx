@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
@@ -15,11 +16,17 @@ import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
 
 const App = () => {
+  const [isFreshTheme, setIsFreshTheme] = useState(false);
+
+  const handleThemeToggle = () => {
+    setIsFreshTheme((prev) => !prev);
+  };
+
   return (
-    <div className="min-h-screen bg-hero-radial bg-hero-glow">
+    <div className={`min-h-screen bg-hero-radial bg-hero-glow ${isFreshTheme ? 'theme-fresh' : ''}`}>
       <Navbar />
-      <main>
-        <Hero />
+      <main className="ml-20 md:ml-24">
+        <Hero onThemeToggle={handleThemeToggle} isFreshTheme={isFreshTheme} />
         <About />
         <Skills />
         <Education />
