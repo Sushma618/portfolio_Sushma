@@ -3,19 +3,32 @@ import { useScrollReveal } from '../hooks/useAnimations';
 
 const PROJECTS = [
   {
-    title: 'Online Assignment Submission and Grading System',
-    tech: ['JSP', 'Hibernate', 'Spring Boot', 'MySQL'],
+    title: 'Online Assignment Submission and Grading System (GradeMate)',
+    tech: ['JSP', 'Hibernate', 'Spring Boot', 'MySQL', 'REST APIs'],
     points: [
-      'Built Spring Boot backend with role-based access and optimized queries.',
-      'Developed REST APIs for multi-user submissions, grading, and data management.'
-    ]
+      'Built Spring Boot backend with role-based access (Teacher/Student) and optimized queries.',
+      'Developed REST APIs enabling reliable multi-user submission, grading, and data management.',
+      'Implemented teacher dashboard for assignment management, grading, and feedback with student progress tracking.',
+      'Created student dashboard for submission tracking, deadline management, and grade viewing.'
+    ],
+    link: 'https://tinyurl.com/34erty'
   },
   {
     title: 'Cloud-Native E-Commerce Backend (Microservices)',
     tech: ['Java', 'Spring Boot', 'Docker', 'Kubernetes', 'AWS'],
     points: [
-      'Designed cart, orders, and inventory services deployed on AWS EKS for auto-scaling.',
-      'Implemented API Gateway routing and centralized logging with resilient service communication.'
+      'Designed microservices (cart, orders, inventory) deployed on AWS EKS for auto-scaling and high availability.',
+      'Implemented API Gateway routing and centralized logging with resilient inter-service communication.',
+      'Optimized system for reliability and performance in cloud-native environments.'
+    ]
+  },
+  {
+    title: 'Library Management System',
+    tech: ['JSP', 'JSF', 'JPA', 'EJB', 'MySQL'],
+    points: [
+      'Developed web application for library operations with responsive frontend using JSP and JSF.',
+      'Implemented backend processing with JPA and EJB, seamlessly integrated with MySQL for data management.',
+      'Managed book catalog, user accounts, borrowing/returning, and overdue tracking.'
     ]
   }
 ];
@@ -60,6 +73,16 @@ const Projects = () => {
                     </li>
                   ))}
                 </ul>
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-block text-accentCyan hover:text-accentPurple transition font-semibold text-sm"
+                  >
+                    View Project →
+                  </a>
+                )}
               </div>
             ))}
           </div>

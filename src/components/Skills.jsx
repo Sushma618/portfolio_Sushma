@@ -3,24 +3,34 @@ import { useScrollReveal } from '../hooks/useAnimations';
 
 const EXPERTISE = [
   {
-    title: 'Cloud Platforms',
-    items: ['AWS', 'Azure', 'GCP'],
+    title: 'Languages',
+    items: ['Java', 'Python', 'C'],
     color: 'from-accentPurple to-accentBlue'
   },
   {
-    title: 'Container Orchestration',
-    items: ['Kubernetes', 'Docker', 'ECS'],
+    title: 'Web Development',
+    items: ['HTML', 'CSS', 'JavaScript', 'React.js', 'Spring', 'Spring Boot', 'Hibernate'],
     color: 'from-accentCyan to-accentPurple'
   },
   {
-    title: 'Infrastructure as Code',
-    items: ['Terraform', 'CloudFormation', 'Ansible'],
+    title: 'Database Systems',
+    items: ['MySQL', 'Oracle', 'PostgreSQL'],
     color: 'from-accentBlue to-accentCyan'
   },
   {
-    title: 'CI/CD & Automation',
-    items: ['GitHub Actions', 'GitLab CI', 'Jenkins'],
+    title: 'DevOps Tools',
+    items: ['Git', 'GitHub', 'Jenkins', 'CircleCI', 'Docker', 'Kubernetes', 'Helm', 'Ansible', 'Terraform'],
     color: 'from-accentPurple to-accentCyan'
+  },
+  {
+    title: 'Cloud (AWS)',
+    items: ['EC2', 'S3', 'EKS', 'RDS', 'VPC', 'IAM', 'Lambda', 'CloudFront', 'CloudWatch', 'ALB/ELB', 'Route 53'],
+    color: 'from-accentCyan to-accentBlue'
+  },
+  {
+    title: 'Relevant Coursework',
+    items: ['OOPS', 'Operating Systems', 'DSA', 'DBMS', 'Computer Networks', 'System Design'],
+    color: 'from-accentBlue to-accentPurple'
   }
 ];
 

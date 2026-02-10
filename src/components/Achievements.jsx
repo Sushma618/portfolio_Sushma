@@ -1,54 +1,142 @@
-import { useRef } from 'react';
-import { useScrollReveal } from '../hooks/useAnimations';
+import { useEffect, useRef } from 'react';
 
 const ACHIEVEMENTS = [
-  {
-    title: 'CODE4CHANGE Hackathon',
-    subtitle: '1st Place',
-    description: 'Built a cloud-native disaster response platform in 24 hours.'
-  },
-  {
-    title: 'AWS Cloud Practitioner',
-    subtitle: 'Certified',
-    description: 'Validated knowledge of AWS cloud services and architecture.'
-  },
-  {
-    title: 'Global DevOps Challenge',
-    subtitle: 'Top 10%',
-    description: 'Ranked in top 10% out of 5000+ participants worldwide.'
-  }
+  { title: 'AWS Cloud Practitioner', type: 'cert', image: '/achievements/aws.jpeg' },
+  { title: 'Red Hat EX183 Certified', type: 'leetcode', image: '/achievements/redhat.jpeg' },
+  { title: 'Salesforce AI Associate', type: 'cert', image: '/achievements/salesforce.jpeg' },
+
+  { title: 'Azure Developer Associate', type: 'cert', image: '/achievements/azure.jpeg' },
+  { title: 'Multicloud Network Associate', type: 'leetcode', image: '/achievements/aviatrix.jpeg' },
+  { title: 'Code4Change Hackathon', type: 'cert', image: '/achievements/code.png' },
+
+  { title: 'LeetCode 100 Days Challenge', type: 'cert', image: '/achievements/100.mp4' },
+  { title: 'LeetCode 100 Days', type: 'leetcode', image: '/achievements/100.jpeg', rotate: true, backText: 'LeetCode 2025' },
+  { title: 'Cisco Networking Academy', type: 'cert', image: '/achievements/cert-dark.svg' },
+
+  { title: 'Google Coursera Certificate', type: 'cert', image: '/achievements/cert-white.svg' },
+  { title: 'LeetCode 200 Days', type: 'leetcode', image: '/achievements/leetcode-hex.svg' },
+  { title: 'IBM Coursera Certificate', type: 'cert', image: '/achievements/cert-dark.svg' },
+
+  { title: 'LinkedIn Learning Certificates', type: 'cert', image: '/achievements/cert-white.svg' },
+  { title: 'LeetCode 50 Days', type: 'leetcode', image: '/achievements/leetcode-hex.svg', rotate: true, backText: 'LeetCode 2025' },
+  { title: 'Juniper Cloud Virtual Internship', type: 'cert', image: '/achievements/cert-dark.svg' },
+
+  { title: 'Oracle Cloud Foundations', type: 'cert', image: '/achievements/cert-white.svg' },
+  { title: 'NPTEL Software Testing', type: 'cert', image: '/achievements/cert-dark.svg' },
+  { title: 'Red Hat DO180 OpenShift', type: 'cert', image: '/achievements/cert-white.svg' },
+
+  { title: 'Microsoft GitHub Foundations', type: 'cert', image: '/achievements/cert-dark.svg' },
+  { title: 'Coursera Project Network', type: 'cert', image: '/achievements/cert-white.svg' }
 ];
 
 const Achievements = () => {
-  const ref = useRef(null);
-  useScrollReveal(ref);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const cards = Array.from(sectionRef.current.querySelectorAll('.achv-card'));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('achv-card--visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    cards.forEach((card, index) => {
+      card.style.setProperty('--delay', `${index * 0.08}s`);
+      observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="achievements" className="relative py-32">
-      <div className="mx-auto max-w-6xl px-6 md:px-10">
-        <div ref={ref} className="space-y-12">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Recognition</p>
-            <h2 className="mt-4 text-5xl font-black">
-              Moments that <span className="text-accentCyan">matter</span>
-            </h2>
-          </div>
+    <section id="achievements" ref={sectionRef} className="achv-section">
+      <div className="achv-bg" aria-hidden="true" />
+      <div className="achv-container">
+        <div className="achv-header">
+          <h2 className="achv-title">
+            <span className="achv-title__accent">MY</span> ACHIEVEMENTS & CERTIFICATIONS
+          </h2>
+          <div className="achv-title__underline" />
+        </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {ACHIEVEMENTS.map((achievement) => (
-              <div
-                key={achievement.title}
-                className="group rounded-2xl border border-slate-800 bg-gradient-to-br from-panel/60 to-panel/20 p-8 transition hover:border-accentPurple/50 hover:shadow-glow"
-              >
-                <div className="space-y-4">
-                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-accentPurple/20 to-accentCyan/20 transition group-hover:from-accentPurple/40 group-hover:to-accentCyan/40" />
-                  <h3 className="text-lg font-semibold">{achievement.title}</h3>
-                  <p className="text-sm font-medium text-accentCyan">{achievement.subtitle}</p>
-                  <p className="text-sm text-slate-400">{achievement.description}</p>
+        <div className="achv-grid">
+          {ACHIEVEMENTS.map((achievement) => (
+            <article
+              key={achievement.title}
+              className={`achv-card ${achievement.type === 'leetcode' ? 'achv-card--leetcode' : ''} ${achievement.rotate ? 'achv-card--rotate' : ''}`}
+            >
+              <div className="achv-card__media">
+                {achievement.rotate ? (
+                  <div className="achv-flip-container">
+                    <div className="achv-flip-card">
+                      <div className="achv-flip-front">
+                        <img
+                          src={achievement.image}
+                          alt={achievement.title}
+                          className="achv-card__img"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="achv-flip-back">
+                        <span className="achv-flip-text">{achievement.backText}</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : achievement.image.endsWith('.mp4') ? (
+                  <video
+                    className="achv-card__img"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source src={achievement.image} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    src={achievement.image}
+                    alt={achievement.title}
+                    className="achv-card__img"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+              <div className="achv-card__footer">
+                <span className="achv-card__title">{achievement.title}</span>
+              </div>
+              <div className="achv-card__overlay" aria-hidden="true">
+                <div className="achv-card__view">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      d="M3 7h8a2 2 0 0 1 2 2v8H5a2 2 0 0 1-2-2V7zm14 0h4v12h-4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M8.5 12.5h4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span>VIEW</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

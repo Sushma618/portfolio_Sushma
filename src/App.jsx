@@ -4,7 +4,6 @@ import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
 import Skills from './components/Skills.jsx';
 import Education from './components/Education.jsx';
-import Certifications from './components/Certifications.jsx';
 import Services from './components/Services.jsx';
 import Experience from './components/Experience.jsx';
 import Timeline from './components/Timeline.jsx';
@@ -28,13 +27,12 @@ const App = () => {
       <main className="ml-20 md:ml-24">
         <Hero onThemeToggle={handleThemeToggle} isFreshTheme={isFreshTheme} />
         <About />
+        <Achievements />
         <Skills />
         <Education />
-        <Certifications />
         <Services />
         <Experience />
         <Timeline />
-        <Achievements />
         <Testimonials />
         <Projects />
         <Activities />

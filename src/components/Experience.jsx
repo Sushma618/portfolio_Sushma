@@ -6,6 +6,7 @@ const WORK = [
     title: 'Loyalty Juggernaut',
     role: 'DevOps Engineering Intern',
     period: '2024 — Present',
+    logo: '/lji.jpeg',
     impact:
       'Orchestrated cloud infrastructure migrations, reducing deployment time from 4 hours to 15 minutes. Implemented comprehensive observability stack with Prometheus + Grafana across 200+ microservices.',
     tech: ['Kubernetes', 'AWS', 'Terraform', 'GitHub Actions']
@@ -50,8 +51,15 @@ const Experience = () => {
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div className="flex-1">
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">{project.role}</p>
-                  <h3 className="mt-2 text-2xl font-bold">{project.title}</h3>
+                  <div className="flex items-center gap-4">
+                    {project.logo && (
+                      <img src={project.logo} alt={project.title} className="w-12 h-12 object-contain rounded-lg" />
+                    )}
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.3em] text-slate-400">{project.role}</p>
+                      <h3 className="mt-2 text-2xl font-bold">{project.title}</h3>
+                    </div>
+                  </div>
                   <p className="mt-2 text-sm text-slate-400">{project.period}</p>
                 </div>
                 <span className="text-right text-3xl font-black text-accentPurple/40">
