@@ -18,7 +18,7 @@ const About = () => {
   });
 
   useEffect(() => {
-    const targets = { experience: 10, projects: 2, clients: 3, certifications: 4, awards: 20 };
+    const targets = { experience: 10, projects: 2, clients: 3, certifications: 5, awards: 20 };
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;

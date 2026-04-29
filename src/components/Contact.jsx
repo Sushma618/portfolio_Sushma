@@ -1,66 +1,80 @@
 import { useRef } from 'react';
+import { FaGithub, FaLinkedin, FaEnvelopeOpenText } from 'react-icons/fa';
 import { useScrollReveal } from '../hooks/useAnimations';
+
+const CONTACT_LINKS = [
+  {
+    label: 'Email',
+    value: 'saisushma618@gmail.com',
+    href: 'mailto:saisushma618@gmail.com',
+    icon: FaEnvelopeOpenText,
+    accent: 'text-accentCyan'
+  },
+  {
+    label: 'LinkedIn',
+    value: 'thokala-sai-sushma',
+    href: 'https://www.linkedin.com/in/thokala-sai-sushma-411242255/',
+    icon: FaLinkedin,
+    accent: 'text-accentPurple'
+  },
+  {
+    label: 'GitHub',
+    value: 'Sushma618',
+    href: 'https://github.com/Sushma618',
+    icon: FaGithub,
+    accent: 'text-accentBlue'
+  }
+];
 
 const Contact = () => {
   const ref = useRef(null);
   useScrollReveal(ref);
 
   return (
-    <section id="contact" className="relative py-32">
-      <div className="mx-auto max-w-4xl px-6 md:px-10">
-        <div ref={ref} className="space-y-12">
+    <section id="contact" className="relative py-24 md:py-28">
+      <div className="mx-auto max-w-5xl px-6 md:px-10">
+        <div ref={ref} className="space-y-8 md:space-y-10">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Get in Touch</p>
-            <h2 className="mt-4 text-5xl font-black">
-              Let's build <span className="text-accentPurple">something remarkable</span>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-3xl">📩</span>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Contact</p>
+            </div>
+            <h2 className="mt-4 text-4xl font-black md:text-5xl">
+              Let&apos;s connect
             </h2>
-            <p className="mt-6 max-w-2xl text-lg text-slate-300">
-              Interested in discussing DevOps, cloud architecture, or opportunities? I'm always
-              open to thoughtful conversations.
+            <p className="mt-4 max-w-2xl text-base text-slate-300 md:text-lg">
+              Reach out for internships, projects, or a quick conversation.
             </p>
           </div>
 
-          <div className="space-y-4">
-            <a
-              href="mailto:sushma@example.com"
-              className="group block rounded-2xl border border-slate-800 bg-gradient-to-r from-panel/60 to-panel/20 p-8 transition hover:border-accentCyan/50 hover:shadow-glow"
-            >
-              <p className="text-sm uppercase tracking-widest text-slate-400">Email</p>
-              <p className="mt-3 text-2xl font-bold text-accentCyan transition group-hover:text-white">
-                sushma@example.com
-              </p>
-            </a>
+          <div className="grid gap-4 md:grid-cols-3">
+            {CONTACT_LINKS.map((item) => {
+              const Icon = item.icon;
 
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-2xl border border-slate-800 bg-gradient-to-r from-panel/60 to-panel/20 p-8 transition hover:border-accentPurple/50 hover:shadow-glow"
-            >
-              <p className="text-sm uppercase tracking-widest text-slate-400">LinkedIn</p>
-              <p className="mt-3 text-2xl font-bold text-accentPurple transition group-hover:text-white">
-                Connect on LinkedIn
-              </p>
-            </a>
-
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-2xl border border-slate-800 bg-gradient-to-r from-panel/60 to-panel/20 p-8 transition hover:border-accentBlue/50 hover:shadow-glow"
-            >
-              <p className="text-sm uppercase tracking-widest text-slate-400">GitHub</p>
-              <p className="mt-3 text-2xl font-bold text-accentBlue transition group-hover:text-white">
-                View Projects
-              </p>
-            </a>
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.label === 'Email' ? '_self' : '_blank'}
+                  rel={item.label === 'Email' ? undefined : 'noopener noreferrer'}
+                  className="group rounded-2xl border border-slate-800 bg-panel/70 p-6 transition hover:-translate-y-1 hover:border-slate-600 hover:shadow-glow md:p-7"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`rounded-full bg-slate-950/60 p-3 ${item.accent}`}>
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <p className="text-sm uppercase tracking-[0.25em] text-slate-400">{item.label}</p>
+                      <p className="mt-1 text-lg font-semibold text-white transition group-hover:text-accentCyan">
+                        {item.value}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
           </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-gradient-to-br from-accentPurple/5 to-accentCyan/5 p-8">
-            <p className="text-center text-sm text-slate-400">
-              © 2026 Thokala Sai Sushma. Built with intention.
-            </p>
-          </div>
         </div>
       </div>
     </section>

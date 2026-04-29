@@ -1,91 +1,233 @@
-import { useRef } from 'react';
-import { useScrollReveal } from '../hooks/useAnimations';
+import { useEffect, useRef } from 'react';
 
 const PROJECTS = [
   {
-    title: 'Online Assignment Submission and Grading System (GradeMate)',
-    tech: ['JSP', 'Hibernate', 'Spring Boot', 'MySQL', 'REST APIs'],
-    points: [
-      'Built Spring Boot backend with role-based access (Teacher/Student) and optimized queries.',
-      'Developed REST APIs enabling reliable multi-user submission, grading, and data management.',
-      'Implemented teacher dashboard for assignment management, grading, and feedback with student progress tracking.',
-      'Created student dashboard for submission tracking, deadline management, and grade viewing.'
+    id: 1,
+    title: 'Cloud-Native E-Commerce Backend',
+    subtitle: 'Microservices Architecture',
+    description: 'Highly scalable and resilient microservices-based e-commerce platform deployed on AWS with container orchestration.',
+    tech: ['Java', 'Spring Boot', 'Docker', 'Kubernetes', 'AWS EKS'],
+    features: [
+      'Designed independent microservices for cart, orders, and inventory',
+      'Deployed on AWS EKS with auto-scaling and high availability'
     ],
-    link: 'https://tinyurl.com/34erty'
+    impact: [
+      'Achieved 99.9% uptime with automatic failover',
+      'Reduced deployment time by 60% using containerization'
+    ],
   },
   {
-    title: 'Cloud-Native E-Commerce Backend (Microservices)',
-    tech: ['Java', 'Spring Boot', 'Docker', 'Kubernetes', 'AWS'],
-    points: [
-      'Designed microservices (cart, orders, inventory) deployed on AWS EKS for auto-scaling and high availability.',
-      'Implemented API Gateway routing and centralized logging with resilient inter-service communication.',
-      'Optimized system for reliability and performance in cloud-native environments.'
+    id: 2,
+    title: 'GradeMate',
+    subtitle: 'Assignment Submission & Grading System',
+    description: 'Comprehensive platform enabling students to submit assignments and teachers to grade and provide feedback efficiently.',
+    tech: ['React', 'Spring Boot', 'MySQL', 'REST APIs'],
+    features: [
+      'Role-based dashboards for students and teachers',
+      'Real-time assignment tracking and automated grading'
+    ],
+    impact: [
+      'Reduced teacher grading workload by 40%',
+      'Improved student engagement with instant feedback'
+    ],
+    links: [
+      { label: 'Live Demo', url: 'https://sushma618.github.io/OnlineGradingSystem/' },
+      { label: 'More Info', url: 'https://tinyurl.com/34erty' }
     ]
   },
   {
-    title: 'Library Management System',
-    tech: ['JSP', 'JSF', 'JPA', 'EJB', 'MySQL'],
-    points: [
-      'Developed web application for library operations with responsive frontend using JSP and JSF.',
-      'Implemented backend processing with JPA and EJB, seamlessly integrated with MySQL for data management.',
-      'Managed book catalog, user accounts, borrowing/returning, and overdue tracking.'
+    id: 3,
+    title: 'AI-Powered Fintech Platform',
+    subtitle: 'Hackathon Winner - CODE4CHANGE',
+    description: 'Innovative financial management platform winning 1st place at CODE4CHANGE hackathon in 27 hours.',
+    tech: ['Spring Boot', 'JavaScript', 'MySQL', 'Gemini API', 'Chart.js'],
+    features: [
+      'JWT authentication with real-time portfolio tracking',
+      'AI-powered financial insights using Gemini API'
+    ],
+    impact: [
+      'Won 1st place at CODE4CHANGE Hackathon 2024',
+      'Processed 100+ financial portfolios with AI analysis'
+    ],
+  },
+  {
+    id: 4,
+    title: 'Subscription Management System',
+    subtitle: 'Expense Tracking & Renewal Alerts',
+    description: 'Smart subscription tracker helping users monitor recurring expenses and never miss renewal dates.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'LocalStorage'],
+    features: [
+      'Centralized tracking of all subscriptions and costs',
+      'Automated reminder notifications for renewals'
+    ],
+    impact: [
+      'Users save average of $50+/month by identifying unused subscriptions',
+      'Complete visibility into recurring expenses'
+    ],
+    links: [
+      { label: 'GitHub', url: 'https://github.com/Sushma618/SubscriptionManagementSystem' }
+    ]
+  },
+  {
+    id: 5,
+    title: 'Weather App',
+    subtitle: 'Real-Time Weather Information',
+    description: 'Interactive weather application providing real-time meteorological data with a clean and intuitive interface.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Weather API'],
+    features: [
+      'Real-time weather data by city search',
+      'Display temperature, humidity, and conditions'
+    ],
+    impact: [
+      'Fast and lightweight application',
+      'User-friendly interface for quick lookups'
+    ],
+    links: [
+      { label: 'Live Demo', url: 'https://sushma618.github.io/weatherApp/' },
+      { label: 'GitHub', url: 'https://github.com/Sushma618/weatherApp' }
+    ]
+  },
+  {
+    id: 6,
+    title: 'Digital Piano Live',
+    subtitle: 'Interactive Virtual Instrument',
+    description: 'Fully functional virtual piano with keyboard support, providing an immersive music playing experience.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Web Audio API'],
+    features: [
+      'Interactive piano with keyboard and mouse support',
+      'Real-time sound playback with smooth audio'
+    ],
+    impact: [
+      'Practice music without physical instrument',
+      'Professional-quality sound output'
+    ],
+    links: [
+      { label: 'Play Now', url: 'https://sushma618.github.io/Digitalpianolive/' },
+      { label: 'GitHub', url: 'https://github.com/Sushma618/Digitalpianolive' }
+    ]
+  },
+  {
+    id: 7,
+    title: 'To-Do List Application',
+    subtitle: 'Task Management & Organization',
+    description: 'Simple yet powerful task management application with persistent storage for organizing daily activities.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'LocalStorage'],
+    features: [
+      'Add, delete, update tasks with ease',
+      'Persistent local storage across sessions'
+    ],
+    impact: [
+      'Improves productivity with simple task management',
+      'Offline functionality with data persistence'
+    ],
+    links: [
+      { label: 'Try Now', url: 'https://sushma618.github.io/to-do-list/' },
+      { label: 'GitHub', url: 'https://github.com/Sushma618/to-do-list' }
     ]
   }
 ];
 
 const Projects = () => {
-  const ref = useRef(null);
-  useScrollReveal(ref);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const cards = Array.from(sectionRef.current.querySelectorAll('.proj-card'));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('proj-card--visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cards.forEach((card, index) => {
+      card.style.setProperty('--delay', `${index * 0.1}s`);
+      observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="projects" className="relative py-32">
-      <div className="mx-auto max-w-6xl px-6 md:px-10">
-        <div ref={ref} className="space-y-12">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Projects</p>
-            <h2 className="mt-4 text-5xl font-black">
-              Systems shipped <span className="text-accentPurple">end-to-end</span>
-            </h2>
-          </div>
+    <section id="projects" ref={sectionRef} className="proj-section">
+      <div className="proj-bg" aria-hidden="true" />
+      <div className="proj-container">
+        <div className="proj-header">
+          <h2 className="proj-title">
+            <span className="proj-title__accent">FEATURED</span> PROJECTS
+          </h2>
+          <div className="proj-title__underline" />
+        </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {PROJECTS.map((project) => (
-              <div
-                key={project.title}
-                className="rounded-2xl border border-slate-800 bg-gradient-to-br from-panel/70 to-panel/20 p-8"
-              >
-                <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tech.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-slate-700/50 px-3 py-1 text-xs font-medium text-slate-300"
-                    >
-                      {item}
-                    </span>
-                  ))}
+        <div className="proj-grid">
+          {PROJECTS.map((project) => (
+            <article key={project.id} className="proj-card">
+              <div className="proj-card__badge">{project.id <= 3 ? '⭐ Featured' : '💡 Project'}</div>
+              
+              <div className="proj-card__content">
+                <div className="proj-card__top">
+                  <h3 className="proj-card__title">{project.title}</h3>
+                  <p className="proj-card__subtitle">{project.subtitle}</p>
+                  <p className="proj-card__description">{project.description}</p>
                 </div>
-                <ul className="mt-6 space-y-3 text-sm text-slate-400">
-                  {project.points.map((point) => (
-                    <li key={point} className="flex gap-2">
-                      <span className="text-accentCyan">•</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 inline-block text-accentCyan hover:text-accentPurple transition font-semibold text-sm"
-                  >
-                    View Project →
-                  </a>
+
+                <div className="proj-card__tech">
+                  <p className="proj-card__label">Tech Stack:</p>
+                  <div className="proj-card__tags">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className="proj-card__tag">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="proj-card__features">
+                  <p className="proj-card__label">Key Features:</p>
+                  <ul className="proj-card__list">
+                    {project.features.map((feature, idx) => (
+                      <li key={idx} className="proj-card__item">
+                        <span className="proj-card__bullet">▸</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="proj-card__impact">
+                  <p className="proj-card__label">Impact:</p>
+                  <ul className="proj-card__list proj-card__list--impact">
+                    {project.impact.map((imp, idx) => (
+                      <li key={idx} className="proj-card__item">
+                        <span className="proj-card__bullet">✓</span>
+                        {imp}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {project.links && (
+                  <div className="proj-card__links">
+                    {project.links.map((link, idx) => (
+                      <a
+                        key={idx}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="proj-card__btn"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
                 )}
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

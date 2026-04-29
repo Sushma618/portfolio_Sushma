@@ -4,20 +4,15 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
     { id: 'hero', label: 'Home', icon: '🏠' },
     { id: 'about', label: 'About', icon: '🙋‍♀️' },
     { id: 'achievements', label: 'Achievements', icon: '🏆' },
-    { id: 'skills', label: 'Skills', icon: '⚡' },
-    { id: 'education', label: 'Education', icon: '🎓' },
-    { id: 'services', label: 'Services', icon: '💼' },
-    { id: 'work', label: 'Work', icon: '💻' },
-    { id: 'timeline', label: 'Timeline', icon: '📅' },
-    { id: 'testimonials', label: 'Testimonials', icon: '💬' },
     { id: 'projects', label: 'Projects', icon: '🚀' },
-    { id: 'activities', label: 'Activities', icon: '🎯' },
-    { id: 'contact', label: 'Contact', icon: '📧' }
+    { id: 'tech-stack', label: 'Tech Stack', icon: '💡' },
+    { id: 'contact', label: 'Contact', icon: '📩' }
   ];
 
   useEffect(() => {
@@ -39,10 +34,69 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const syncMenuState = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    syncMenuState();
+    window.addEventListener('resize', syncMenuState);
+    return () => window.removeEventListener('resize', syncMenuState);
+  }, []);
+
   return (
     <>
+      <div className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/50 bg-ink/95 backdrop-blur-xl lg:hidden">
+        <div className="flex h-16 items-center justify-between px-4">
+          <a
+            href="#hero"
+            className="group relative text-2xl font-black text-transparent bg-clip-text bg-gradient-to-br from-accentPurple via-accentCyan to-accentPurple bg-size-200 animate-gradient"
+          >
+            <span className="relative z-10 animate-bounce-slow">TS</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-accentPurple to-accentCyan opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 animate-pulse" />
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            className="relative p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-300 group"
+            title={isMobileMenuOpen ? 'Close' : 'Menu'}
+          >
+            <div className="relative w-5 h-5 flex flex-col justify-center gap-1">
+              <span className={`block h-0.5 bg-gradient-to-r from-accentPurple to-accentCyan transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5 w-full' : 'w-full'}`} />
+              <span className={`block h-0.5 bg-gradient-to-r from-accentPurple to-accentCyan transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : 'w-4'}`} />
+              <span className={`block h-0.5 bg-gradient-to-r from-accentPurple to-accentCyan transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5 w-full' : 'w-full'}`} />
+            </div>
+          </button>
+        </div>
+
+        {isMobileMenuOpen && (
+          <div className="border-t border-slate-800/50 bg-ink/98 px-3 py-3 shadow-2xl">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {menuItems.map((item) => (
+                <a
+                  key={`mobile-${item.id}`}
+                  href={`#${item.id}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition-all duration-300 ${
+                    activeSection === item.id
+                      ? 'border-accentPurple/60 bg-accentPurple/10 text-white'
+                      : 'border-slate-700/60 bg-slate-800/30 text-slate-200 hover:border-accentCyan/40 hover:text-white'
+                  }`}
+                >
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Left Sidebar Navigation */}
-      <nav className={`fixed left-0 top-0 z-50 h-screen bg-gradient-to-b from-ink via-ink/95 to-ink border-r border-slate-800/50 backdrop-blur-xl shadow-2xl transition-all duration-500 ${isExpanded ? 'w-56' : 'w-20 md:w-24'}`}>
+      <nav className={`fixed left-0 top-0 z-50 hidden h-screen bg-gradient-to-b from-ink via-ink/95 to-ink border-r border-slate-800/50 backdrop-blur-xl shadow-2xl transition-all duration-500 lg:block ${isExpanded ? 'w-56' : 'w-20 md:w-24'}`}>
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-20 -left-20 w-40 h-40 bg-accentPurple/10 rounded-full blur-3xl animate-pulse-slow" />
@@ -75,14 +129,14 @@ const Navbar = () => {
         </div>
 
         {/* Menu Items */}
-        <div className="relative flex flex-col gap-0.5 py-4 px-2 overflow-y-auto overflow-x-hidden max-h-[calc(100vh-8rem)] custom-scrollbar">
+        <div className="relative flex flex-col gap-3 py-6 px-3 overflow-y-auto overflow-x-hidden max-h-[calc(100vh-8rem)] custom-scrollbar">
           {menuItems.map((item, index) => (
             <a
               key={item.id}
               href={`#${item.id}`}
               onMouseEnter={() => setHoveredItem(item.id)}
               onMouseLeave={() => setHoveredItem(null)}
-              className={`group relative w-full flex items-center ${isExpanded ? 'justify-start gap-3 px-3' : 'justify-center'}`}
+              className={`group relative w-full flex items-center py-1.5 ${isExpanded ? 'justify-start gap-3 px-3' : 'justify-center'}`}
               style={{
                 animation: `slideInLeft 0.5s ease-out ${index * 0.1}s both`
               }}
@@ -174,7 +228,7 @@ const Navbar = () => {
       </nav>
 
       {/* Spacer for content */}
-      <div className="w-20 md:w-24" />
+      <div className="hidden w-20 lg:block" />
       {/* Custom Animations */}
       <style>{`
         @keyframes slideInLeft {

@@ -3,6 +3,7 @@ import { useScrollReveal } from '../hooks/useAnimations';
 
 const CERTIFICATIONS = [
   'AWS Certified Cloud Practitioner — AWS',
+  'AWS Solutions Architect Associate — AWS',
   'Azure Developer Associate — Microsoft',
   'Red Hat Certified Enterprise Application Developer — Red Hat',
   'Software Testing — NPTEL'

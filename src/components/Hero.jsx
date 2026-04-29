@@ -11,6 +11,21 @@ const Hero = ({ onThemeToggle, isFreshTheme }) => {
   const [isPhotoBlinking, setIsPhotoBlinking] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [buttonColorIndex, setButtonColorIndex] = useState(0);
+
+  const buttonColors = [
+    { bg: 'from-accentPurple to-accentCyan', border: 'border-accentPurple/70' },
+    { bg: 'from-accentCyan to-accentBlue', border: 'border-accentCyan/70' },
+    { bg: 'from-accentBlue to-accentPurple', border: 'border-accentBlue/70' },
+    { bg: 'from-accentPurple via-accentCyan to-accentBlue', border: 'border-accentPurple/70' },
+    { bg: 'from-accentCyan via-accentPurple to-accentBlue', border: 'border-accentCyan/70' },
+    { bg: 'from-accentBlue via-accentCyan to-accentPurple', border: 'border-accentBlue/70' }
+  ];
+
+  const handleButtonClick = () => {
+    setButtonColorIndex((prev) => (prev + 1) % buttonColors.length);
+    onThemeToggle();
+  };
 
   const roles = [
     'DevOps Engineer',
@@ -128,12 +143,12 @@ const Hero = ({ onThemeToggle, isFreshTheme }) => {
             <div className="pt-8 flex flex-wrap items-center gap-4">
               <button
                 type="button"
-                onClick={onThemeToggle}
+                onClick={handleButtonClick}
                 aria-pressed={isFreshTheme}
-                className="group relative inline-flex items-center rounded-full border border-accentPurple/70 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-slate-200"
+                className={`group relative inline-flex items-center rounded-full border ${buttonColors[buttonColorIndex].border} px-3 py-1 text-xs font-semibold uppercase tracking-widest text-slate-200 transition-all duration-500`}
               >
                 <span className="relative z-10">Fun Fact</span>
-                <span className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-accentPurple to-accentCyan opacity-0 transition group-hover:opacity-100 blur" />
+                <span className={`absolute inset-0 -z-10 rounded-full bg-gradient-to-r ${buttonColors[buttonColorIndex].bg} opacity-0 transition-all duration-500 group-hover:opacity-100 blur`} />
               </button>
               <span className="text-sm font-semibold text-slate-200">
                 Click The Button For A Fresh Look!
