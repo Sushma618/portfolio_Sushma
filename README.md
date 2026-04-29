@@ -2,7 +2,7 @@
 
 Modern, dark-themed portfolio built with Vite + React + Tailwind CSS.
 
-## Getting Started
+
 
 ```bash
 npm install
